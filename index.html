@@ -3,21 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Baddie Resorces - DSA & Development Notes</title>
+  <title>Baddies Resorces - DSA & Dev Notes</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
-  <meta name="theme-color" content="#7C3AED" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🔥</text></svg>" />
+  <meta name="theme-color" content="#FF2079" />
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
+  <!-- Baddie Floating Background Elements -->
+  <div class="baddie-floats" aria-hidden="true">
+    <!-- Lip gloss tube -->
+    <svg class="baddie-float f1" viewBox="0 0 24 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="7" y="18" width="10" height="34" rx="3" fill="currentColor" opacity="0.6"/>
+      <rect x="9" y="21" width="6" height="22" rx="1" fill="currentColor" opacity="0.3"/>
+      <rect x="5" y="12" width="14" height="8" rx="2" fill="currentColor" opacity="0.5"/>
+      <rect x="8" y="6" width="8" height="8" rx="4" fill="currentColor" opacity="0.7"/>
+      <circle cx="12" cy="8" r="2" fill="currentColor" opacity="0.4"/>
+    </svg>
+    <!-- Perfume bottle -->
+    <svg class="baddie-float f2" viewBox="0 0 30 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="22" width="18" height="32" rx="5" fill="currentColor" opacity="0.5"/>
+      <rect x="9" y="25" width="12" height="18" rx="2" fill="currentColor" opacity="0.25"/>
+      <rect x="10" y="14" width="10" height="10" rx="3" fill="currentColor" opacity="0.4"/>
+      <circle cx="15" cy="6" r="3" fill="currentColor" opacity="0.6"/>
+      <rect x="13" y="3" width="4" height="5" rx="1" fill="currentColor" opacity="0.3"/>
+    </svg>
+    <!-- Compact makeup mirror -->
+    <svg class="baddie-float f3" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="42" height="32" rx="6" fill="currentColor" opacity="0.5"/>
+      <rect x="8" y="8" width="34" height="20" rx="4" fill="currentColor" opacity="0.2"/>
+      <circle cx="25" cy="18" r="6" fill="currentColor" opacity="0.4"/>
+      <rect x="20" y="30" width="10" height="4" rx="2" fill="currentColor" opacity="0.3"/>
+      <circle cx="18" cy="30" r="2" fill="currentColor" opacity="0.5"/>
+      <circle cx="32" cy="30" r="2" fill="currentColor" opacity="0.5"/>
+    </svg>
+    <!-- High heel shoe -->
+    <svg class="baddie-float f4" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 40 Q10 30 20 28 Q30 26 35 20 Q38 16 40 14 Q42 12 44 16 Q40 22 35 28 Q28 34 18 36 Q12 38 8 40Z" fill="currentColor" opacity="0.5"/>
+      <path d="M8 40 L12 42 L14 38 Z" fill="currentColor" opacity="0.6"/>
+      <line x1="10" y1="42" x2="42" y2="14" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <circle cx="38" cy="12" r="3" fill="currentColor" opacity="0.4"/>
+    </svg>
+    <!-- Handbag / purse -->
+    <svg class="baddie-float f5" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="14" width="38" height="22" rx="5" fill="currentColor" opacity="0.5"/>
+      <rect x="10" y="18" width="30" height="10" rx="2" fill="currentColor" opacity="0.25"/>
+      <path d="M18 14 Q18 6 25 6 Q32 6 32 14" stroke="currentColor" stroke-width="2.5" fill="none" opacity="0.5"/>
+      <circle cx="18" cy="25" r="2" fill="currentColor" opacity="0.4"/>
+      <circle cx="32" cy="25" r="2" fill="currentColor" opacity="0.4"/>
+    </svg>
+    <!-- Sunglasses -->
+    <svg class="baddie-float f6" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="8" width="22" height="16" rx="6" fill="currentColor" opacity="0.4"/>
+      <rect x="36" y="8" width="22" height="16" rx="6" fill="currentColor" opacity="0.4"/>
+      <line x1="24" y1="14" x2="36" y2="14" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+      <line x1="24" y1="18" x2="36" y2="18" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+      <path d="M2 14 Q0 6 6 4" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+      <path d="M58 14 Q60 6 54 4" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+      <line x1="6" y1="4" x2="10" y2="8" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+      <line x1="54" y1="4" x2="50" y2="8" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    </svg>
+    <!-- Diamond / jewel -->
+    <svg class="baddie-float f7" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 2 L48 16 L25 38 L2 16 Z" fill="currentColor" opacity="0.4"/>
+      <path d="M25 2 L25 38 L48 16 Z" fill="currentColor" opacity="0.25"/>
+      <path d="M2 16 L25 38 L25 2 Z" fill="currentColor" opacity="0.15"/>
+      <circle cx="25" cy="16" r="4" fill="currentColor" opacity="0.5"/>
+    </svg>
+    <!-- Hair bow / ribbon -->
+    <svg class="baddie-float f8" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 8 Q10 2 4 12 Q0 18 10 18 Q18 18 25 8Z" fill="currentColor" opacity="0.5"/>
+      <path d="M25 8 Q40 2 46 12 Q50 18 40 18 Q32 18 25 8Z" fill="currentColor" opacity="0.5"/>
+      <circle cx="25" cy="10" r="4" fill="currentColor" opacity="0.6"/>
+      <path d="M22 12 Q20 22 25 26 Q30 22 28 12" fill="currentColor" opacity="0.3"/>
+    </svg>
+    <!-- Butterfly -->
+    <svg class="baddie-float f9" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 20 Q10 2 4 12 Q0 20 12 22 Q6 26 8 32 Q12 36 20 28 Q22 24 25 20Z" fill="currentColor" opacity="0.5"/>
+      <path d="M25 20 Q40 2 46 12 Q50 20 38 22 Q44 26 42 32 Q38 36 30 28 Q28 24 25 20Z" fill="currentColor" opacity="0.5"/>
+      <ellipse cx="25" cy="20" rx="3" ry="6" fill="currentColor" opacity="0.3"/>
+      <line x1="25" y1="20" x2="25" y2="36" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+    </svg>
+    <!-- Crown / tiara -->
+    <svg class="baddie-float f10" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 22 L6 28 L44 28 L44 22 L36 14 L30 22 L25 4 L20 22 L14 14 Z" fill="currentColor" opacity="0.5"/>
+      <circle cx="25" cy="6" r="2" fill="currentColor" opacity="0.7"/>
+      <circle cx="14" cy="16" r="1.5" fill="currentColor" opacity="0.5"/>
+      <circle cx="36" cy="16" r="1.5" fill="currentColor" opacity="0.5"/>
+    </svg>
+    <!-- Heart -->
+    <svg class="baddie-float f11" viewBox="0 0 40 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 34 C20 34 4 24 4 14 C4 8 8 4 14 4 C17 4 20 7 20 7 C20 7 23 4 26 4 C32 4 36 8 36 14 C36 24 20 34 20 34Z" fill="currentColor" opacity="0.45"/>
+    </svg>
+    <!-- Star -->
+    <svg class="baddie-float f12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 0 L24 14 L40 16 L26 26 L30 40 L20 32 L10 40 L14 26 L0 16 L16 14 Z" fill="currentColor" opacity="0.45"/>
+    </svg>
+    <!-- Lipstick kiss mark -->
+    <svg class="baddie-float f13" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="18" cy="18" rx="10" ry="8" fill="currentColor" opacity="0.5" transform="rotate(-15,18,18)"/>
+      <ellipse cx="32" cy="18" rx="10" ry="8" fill="currentColor" opacity="0.5" transform="rotate(15,32,18)"/>
+      <path d="M16 22 Q25 32 34 22" fill="currentColor" opacity="0.35"/>
+    </svg>
+    <!-- Nail polish -->
+    <svg class="baddie-float f14" viewBox="0 0 24 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="7" y="18" width="10" height="34" rx="3" fill="currentColor" opacity="0.5"/>
+      <rect x="9" y="21" width="6" height="22" rx="1" fill="currentColor" opacity="0.2"/>
+      <rect x="5" y="12" width="14" height="8" rx="2" fill="currentColor" opacity="0.4"/>
+      <circle cx="12" cy="6" r="4" fill="currentColor" opacity="0.6"/>
+    </svg>
+    <!-- Sparkle -->
+    <svg class="baddie-float f15" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 3 L17 13 L27 15 L17 17 L15 27 L13 17 L3 15 L13 13 Z" fill="currentColor" opacity="0.5"/>
+    </svg>
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        <span class="logo-icon">&lt;/&gt;</span>
-        <span class="logo-text">Baddie Resorces</span>
+        <span class="logo-icon">🔥</span>
+        <span class="logo-text">Baddies <span class="logo-accent">Resorces</span></span>
       </a>
       <ul class="nav-menu" id="navMenu">
         <li><a href="#home" class="nav-link active">Home</a></li>
@@ -55,11 +163,11 @@
     </div>
     <div class="hero-content">
       <div class="hero-text animate-fade-up">
-        <span class="hero-badge">📖 Your Study Companion</span>
-        <h1>Master <span class="gradient-text">DSA & Development</span></h1>
-        <p>Curated notes, NeetCode 250 sheet, and upcoming React & Node courses — all in one place.</p>
+        <span class="hero-badge">🔥 Level Up Your Game</span>
+        <h1>Dominate <span class="gradient-text">DSA & Dev</span></h1>
+        <p>Baddest DSA notes, NeetCode 250 sheet, and React/Node courses coming soon. No cap.</p>
         <div class="hero-buttons">
-          <a href="#notes" class="btn btn-primary">Start Learning <span>&rarr;</span></a>
+          <a href="#notes" class="btn btn-primary">Start Grinding <span>&rarr;</span></a>
           <a href="#neetcode" class="btn btn-outline">View DSA Sheet</a>
         </div>
       </div>
@@ -67,7 +175,7 @@
         <div class="code-window">
           <div class="code-header"><span></span><span></span><span></span></div>
           <div class="code-body">
-            <pre><span class="kw">function</span> <span class="fn">solve</span>() {<br>  <span class="kw">const</span> <span class="v">success</span> = <span class="str">"Keep Learning!"</span>;<br>  <span class="kw">return</span> <span class="v">success</span>;<br>}</pre>
+            <pre><span class="kw">while</span> (<span class="v">success</span> <span class="op">==</span> <span class="kw">false</span>) {<br>  <span class="v">grind</span>.<span class="fn">harder</span>();<br>}<br><span class="c">// Baddie mode: ON</span></pre>
           </div>
         </div>
       </div>
@@ -93,9 +201,9 @@
   <section class="section" id="notes">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <span class="section-badge">📚 DSA Notes</span>
+        <span class="section-badge">🔥 DSA Notes</span>
         <h2>Data Structures & Algorithms</h2>
-        <p>Handwritten-style notes covering essential DSA topics with NeetCode-aligned content.</p>
+        <p>Hand-picked DSA notes with that NeetCode flavor. Study smart, look baddie.</p>
       </div>
       <div class="notes-grid" id="notesGrid">
         <!-- Cards will be injected by JS -->
@@ -109,13 +217,13 @@
       <div class="section-header animate-on-scroll">
         <span class="section-badge">⚛️ Coming Soon</span>
         <h2>React JS Mastery</h2>
-        <p>From hooks to advanced patterns — build real-world apps with React.</p>
+        <p>From hooks to flexin' on components — build baddie-level React apps.</p>
       </div>
       <div class="coming-soon-card animate-on-scroll">
         <div class="cs-icon"><span class="react-logo">⚛️</span></div>
         <h3>React JS Course</h3>
         <div class="cs-progress"><div class="cs-progress-bar" style="width:0%"></div></div>
-        <p>Content being prepared. Get notified when we launch!</p>
+        <p>Content being cooked. Get notified when we drop the fire.</p>
         <div class="cs-notify">
           <input type="email" placeholder="Enter your email" id="reactEmail" />
           <button class="btn btn-primary" onclick="notifyMe('react')">Notify Me</button>
@@ -130,13 +238,13 @@
       <div class="section-header animate-on-scroll">
         <span class="section-badge">🟢 Coming Soon</span>
         <h2>Node JS Backend</h2>
-        <p>APIs, databases, auth — full-stack development with Node.js.</p>
+        <p>APIs, databases, auth — full-stack development the baddie way.</p>
       </div>
       <div class="coming-soon-card animate-on-scroll">
         <div class="cs-icon"><span class="node-logo">🟢</span></div>
         <h3>Node JS Course</h3>
         <div class="cs-progress"><div class="cs-progress-bar" style="width:0%"></div></div>
-        <p>We're crafting an awesome Node.js curriculum. Stay tuned!</p>
+        <p>We're cooking up a fire Node.js curriculum. Stay locked in.</p>
         <div class="cs-notify">
           <input type="email" placeholder="Enter your email" id="nodeEmail" />
           <button class="btn btn-primary" onclick="notifyMe('node')">Notify Me</button>
@@ -151,7 +259,7 @@
       <div class="section-header animate-on-scroll">
         <span class="section-badge">🦄 DSA Sheet</span>
         <h2>NeetCode 250</h2>
-        <p>Complete beginner-friendly DSA roadmap. Track your progress as you solve.</p>
+        <p>The ultimate beginner-friendly DSA roadmap. Track your grind and lock in.</p>
       </div>
       <div class="nc-controls animate-on-scroll">
         <div class="nc-progress-bar">
@@ -181,9 +289,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <span class="logo-icon">&lt;/&gt;</span>
-          <span class="logo-text">CodePglu</span>
-          <p>Your one-stop platform for DSA and development mastery.</p>
+          <span class="logo-icon">🔥</span>
+          <span class="logo-text">Baddies Resorces</span>
+          <p>Your baddie destination for DSA and dev domination.</p>
         </div>
         <div class="footer-links">
           <h4>Quick Links</h4>
@@ -201,7 +309,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026Baddie Resorces. Made with ❤️ for learners.</p>
+        <p>&copy; 2026 Baddies Resorces. Made with 🔥 for real ones.</p>
       </div>
     </div>
   </footer>
@@ -217,8 +325,8 @@
       <div class="signin-body">
         <div class="signin-welcome">
           <div class="signin-logo">&lt;/&gt;</div>
-          <h2>Welcome to CodePglu</h2>
-          <p>Sign in to track your purchases and progress across devices.</p>
+          <h2>Welcome to Baddies Resorces</h2>
+          <p>Sign in to track your purchases and flex your progress across devices.</p>
         </div>
         <div class="signin-divider">
           <span>Sign in with</span>
