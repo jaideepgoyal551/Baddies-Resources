@@ -803,6 +803,146 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// ===== BADDIE ANALYTICS =====
+async function fetchCFStats() {
+  const handle = document.getElementById('cfHandle').value.trim();
+  const resultDiv = document.getElementById('cfResult');
+  if (!handle) { showToast('Enter a Codeforces handle first.'); return; }
+  resultDiv.innerHTML = '<div class="analytics-loading"><div class="spinner"></div> Fetching CF stats...</div>';
+  try {
+    const [infoRes, ratingRes] = await Promise.all([
+      fetch(`https://codeforces.com/api/user.info?handles=${encodeURIComponent(handle)}`),
+      fetch(`https://codeforces.com/api/user.rating?handle=${encodeURIComponent(handle)}`)
+    ]);
+    const infoData = await infoRes.json();
+    if (infoData.status !== 'OK') { resultDiv.innerHTML = `<div class="analytics-error">User "${handle}" not found on Codeforces</div>`; return; }
+    const user = infoData.result[0];
+    const ratingData = await ratingRes.json();
+    const ratingHistory = ratingData.status === 'OK' ? ratingData.result : [];
+    const currentRating = user.rating || 0;
+    const maxRating = user.maxRating || 0;
+    const rank = user.rank || 'unrated';
+    const contests = ratingHistory.length;
+    const bestRank = ratingHistory.length ? Math.min(...ratingHistory.map(r => r.rank)) : '-';
+    // Get submission stats
+    let solved = 0, totalSubs = 0;
+    try {
+      const subRes = await fetch(`https://codeforces.com/api/user.status?handle=${encodeURIComponent(handle)}&from=1&count=100000`);
+      const subData = await subRes.json();
+      if (subData.status === 'OK') {
+        const solvedSet = new Set();
+        subData.result.forEach(s => {
+          totalSubs++;
+          if (s.verdict === 'OK') solvedSet.add(s.problem.contestId + '-' + s.problem.index);
+        });
+        solved = solvedSet.size;
+      }
+    } catch(e) {}
+    // Rating bar percentage (CF max is ~4000)
+    const ratingPct = Math.min((currentRating / 4000) * 100, 100);
+    const rankClass = (rank || 'newbie').toLowerCase().replace(/\s+/g, '-');
+    const color = currentRating >= 2400 ? '#FF0000' : currentRating >= 2100 ? '#FF8C00' : currentRating >= 1900 ? '#AA00AA' : currentRating >= 1600 ? '#0000FF' : currentRating >= 1400 ? '#03A89E' : currentRating >= 1200 ? '#008000' : '#808080';
+    const avatarHtml = user.avatar ? `<img class="analytics-avatar" src="${user.avatar}" alt="" />` : `<div class="analytics-avatar-placeholder">${handle[0].toUpperCase()}</div>`;
+    resultDiv.innerHTML = `
+      <div class="analytics-profile">
+        <div class="analytics-profile-top">
+          ${avatarHtml}
+          <div class="analytics-name-rank">
+            <div class="analytics-name" style="color:${color}">${handle}</div>
+            <div class="analytics-rank"><span class="analytics-rank-badge ${rankClass}">${(rank || 'Unrated').toUpperCase()}</span></div>
+          </div>
+        </div>
+        <div class="analytics-stats-row">
+          <div class="analytics-stat"><div class="analytics-stat-value">${currentRating}</div><div class="analytics-stat-label">Rating</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${maxRating}</div><div class="analytics-stat-label">Max Rating</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${contests}</div><div class="analytics-stat-label">Contests</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${solved}</div><div class="analytics-stat-label">Solved</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${bestRank === '-' ? '-' : '#' + bestRank}</div><div class="analytics-stat-label">Best Rank</div></div>
+        </div>
+        <div class="analytics-rating-bar">
+          <div class="analytics-rating-label">🔥 Grind Level</div>
+          <div class="analytics-rating-track"><div class="analytics-rating-fill" style="width:${ratingPct}%"></div></div>
+          <div class="analytics-rating-max">max ${maxRating}</div>
+        </div>
+      </div>`;
+  } catch (e) {
+    resultDiv.innerHTML = `<div class="analytics-error">Error fetching CF data. Try again.</div>`;
+  }
+}
+
+async function fetchLCStats() {
+  const username = document.getElementById('lcHandle').value.trim();
+  const resultDiv = document.getElementById('lcResult');
+  if (!username) { showToast('Enter a LeetCode username first.'); return; }
+  resultDiv.innerHTML = '<div class="analytics-loading"><div class="spinner"></div> Fetching LC stats...</div>';
+  try {
+    const res = await fetch(`https://leetcode-stats-api.herokuapp.com/${encodeURIComponent(username)}`);
+    if (!res.ok) { resultDiv.innerHTML = `<div class="analytics-error">User "${username}" not found on LeetCode</div>`; return; }
+    const data = await res.json();
+    if (data.status === 'error') { resultDiv.innerHTML = `<div class="analytics-error">User "${username}" not found on LeetCode</div>`; return; }
+    const total = data.totalSolved || 0;
+    const easy = data.easySolved || 0;
+    const medium = data.mediumSolved || 0;
+    const hard = data.hardSolved || 0;
+    const totalQ = data.totalQuestions || 0;
+    const easyT = data.totalEasy || 1;
+    const medT = data.totalMedium || 1;
+    const hardT = data.totalHard || 1;
+    const acceptance = data.acceptanceRate || 0;
+    const ranking = data.ranking || 0;
+    const contribution = data.contributionPoints || 0;
+    const easyPct = (easy / easyT) * 100;
+    const medPct = (medium / medT) * 100;
+    const hardPct = (hard / hardT) * 100;
+    const totalPct = (total / totalQ) * 100;
+    resultDiv.innerHTML = `
+      <div class="analytics-profile">
+        <div class="analytics-profile-top">
+          <div class="analytics-avatar-placeholder">${username[0].toUpperCase()}</div>
+          <div class="analytics-name-rank">
+            <div class="analytics-name">${username}</div>
+            <div class="analytics-rank" style="font-size:0.8rem;color:var(--text-muted)">Global Rank: #${ranking.toLocaleString()}</div>
+          </div>
+        </div>
+        <div class="analytics-stats-row">
+          <div class="analytics-stat"><div class="analytics-stat-value">${total}</div><div class="analytics-stat-label">Solved</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${acceptance}%</div><div class="analytics-stat-label">Acceptance</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${contribution}</div><div class="analytics-stat-label">Contrib.</div></div>
+          <div class="analytics-stat"><div class="analytics-stat-value">${totalQ}</div><div class="analytics-stat-label">Total Qs</div></div>
+        </div>
+        <div class="analytics-lc-stats">
+          <div class="analytics-lc-stat"><div class="analytics-stat-value analytics-diff-easy">${easy}</div><div class="analytics-stat-label">Easy</div></div>
+          <div class="analytics-lc-stat"><div class="analytics-stat-value analytics-diff-medium">${medium}</div><div class="analytics-stat-label">Medium</div></div>
+          <div class="analytics-lc-stat"><div class="analytics-stat-value analytics-diff-hard">${hard}</div><div class="analytics-stat-label">Hard</div></div>
+          <div class="analytics-lc-stat"><div class="analytics-stat-value">${Math.round(totalPct)}%</div><div class="analytics-stat-label">Progress</div></div>
+        </div>
+        <div class="analytics-bar-container">
+          <div class="analytics-bar-track"><div class="analytics-bar-fill easy" style="width:${easyPct}%"></div></div>
+          <span class="analytics-bar-label">E ${easy}/${easyT}</span>
+        </div>
+        <div class="analytics-bar-container">
+          <div class="analytics-bar-track"><div class="analytics-bar-fill medium" style="width:${medPct}%"></div></div>
+          <span class="analytics-bar-label">M ${medium}/${medT}</span>
+        </div>
+        <div class="analytics-bar-container">
+          <div class="analytics-bar-track"><div class="analytics-bar-fill hard" style="width:${hardPct}%"></div></div>
+          <span class="analytics-bar-label">H ${hard}/${hardT}</span>
+        </div>
+      </div>`;
+  } catch (e) {
+    resultDiv.innerHTML = `<div class="analytics-error">Error fetching LC data. Try again.</div>`;
+  }
+}
+
+// Enter key support for analytics
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const active = document.activeElement;
+    if (active && active.id === 'cfHandle') fetchCFStats();
+    if (active && active.id === 'lcHandle') fetchLCStats();
+  }
+});
+
 // Init Auth UI, Notes Grid, NeetCode
 updateAuthUI();
 renderNotes();
