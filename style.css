@@ -219,47 +219,200 @@ img { max-width: 100%; display: block; }
   --scroll-glow: 0;
 }
 
+/* Fire aura that pulses when scrolling */
+.baddie-floats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(255,32,121,0.15), transparent 50%),
+              radial-gradient(ellipse at 20% 50%, rgba(255,90,158,0.08), transparent 40%),
+              radial-gradient(ellipse at 80% 30%, rgba(0,240,255,0.06), transparent 40%);
+  opacity: calc(var(--scroll-glow, 0) * 0.5);
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+}
+
+.baddie-floats::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  right: -20%;
+  height: 70vh;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255,32,121,0.15), transparent 60%),
+              radial-gradient(ellipse at 30% 100%, rgba(255,90,158,0.1), transparent 50%),
+              radial-gradient(ellipse at 70% 100%, rgba(0,240,255,0.06), transparent 50%);
+  opacity: calc(var(--scroll-glow, 0) * 0.4);
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+}
+
+.baddie-floats.intense::before {
+  opacity: 1;
+  animation: firePulse 2s ease-in-out infinite;
+}
+
+.baddie-floats.intense::after {
+  opacity: 0.9;
+  animation: fireRise 2.5s ease-in-out infinite;
+}
+
+@keyframes firePulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes fireRise {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-10px); }
+}
+
 .baddie-float {
   position: absolute;
   width: 28px;
   height: 28px;
-  opacity: calc(var(--base-opacity, 0.25) + var(--scroll-glow, 0) * 0.35);
-  filter: blur(calc(2px - var(--scroll-glow, 0) * 1px));
-  transition: opacity 0.6s ease, filter 0.6s ease;
+  opacity: calc(var(--base-opacity, 0.25) + var(--scroll-glow, 0) * 0.65);
+  filter: blur(calc(2px - var(--scroll-glow, 0) * 1.5px));
   transform: translateZ(0);
   will-change: transform, opacity, filter;
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+/* When scrolled, all baddies pop with a pulse */
+.baddie-floats.intense .baddie-float {
+  animation-duration: calc(var(--anim-duration, 12s) * 0.5) !important;
+  filter: blur(0px) !important;
+  opacity: calc(var(--base-opacity, 0.25) + 0.55) !important;
+  animation-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1) !important;
 }
 
 /* Lip gloss */
-.baddie-float.f1 { top: 15%; left: 5%; width: 28px; height: 50px; color: var(--pink); animation: baddieFloatA 14s ease-in-out infinite; --base-opacity: 0.35; }
+.baddie-float.f1 { top: 15%; left: 5%; width: 28px; height: 50px; color: var(--pink); animation: baddieFloatA 14s ease-in-out infinite; --base-opacity: 0.35; --anim-duration: 14s; }
 /* Perfume bottle */
-.baddie-float.f2 { top: 65%; right: 4%; width: 26px; height: 48px; color: var(--cyan); animation: baddieFloatB 16s ease-in-out infinite; --base-opacity: 0.3; }
+.baddie-float.f2 { top: 65%; right: 4%; width: 26px; height: 48px; color: var(--cyan); animation: baddieFloatB 16s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 16s; }
 /* Makeup mirror */
-.baddie-float.f3 { top: 35%; right: 8%; width: 36px; height: 30px; color: var(--pink-light); animation: baddieFloatC 12s ease-in-out infinite; --base-opacity: 0.3; }
+.baddie-float.f3 { top: 35%; right: 8%; width: 36px; height: 30px; color: var(--pink-light); animation: baddieFloatC 12s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 12s; }
 /* High heel */
-.baddie-float.f4 { top: 78%; left: 10%; width: 34px; height: 34px; color: var(--pink); animation: baddieFloatD 18s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f4 { top: 78%; left: 10%; width: 34px; height: 34px; color: var(--pink); animation: baddieFloatD 18s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 18s; }
 /* Handbag */
-.baddie-float.f5 { top: 50%; left: 3%; width: 32px; height: 28px; color: var(--cyan); animation: baddieFloatA 15s ease-in-out infinite; --base-opacity: 0.3; }
+.baddie-float.f5 { top: 50%; left: 3%; width: 32px; height: 28px; color: var(--cyan); animation: baddieFloatA 15s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 15s; }
 /* Sunglasses */
-.baddie-float.f6 { top: 20%; right: 12%; width: 36px; height: 20px; color: var(--pink); animation: baddieFloatB 13s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f6 { top: 20%; right: 12%; width: 36px; height: 20px; color: var(--pink); animation: baddieFloatB 13s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 13s; }
 /* Diamond */
-.baddie-float.f7 { top: 80%; right: 15%; width: 26px; height: 22px; color: var(--cyan); animation: baddieFloatC 17s ease-in-out infinite; --base-opacity: 0.3; }
+.baddie-float.f7 { top: 80%; right: 15%; width: 26px; height: 22px; color: var(--cyan); animation: baddieFloatC 17s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 17s; }
 /* Hair bow */
-.baddie-float.f8 { top: 10%; left: 15%; width: 30px; height: 20px; color: var(--pink); animation: baddieFloatD 11s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f8 { top: 10%; left: 15%; width: 30px; height: 20px; color: var(--pink); animation: baddieFloatD 11s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 11s; }
 /* Butterfly */
-.baddie-float.f9 { top: 45%; right: 3%; width: 32px; height: 26px; color: var(--purple); animation: baddieFloatA 10s ease-in-out infinite; --base-opacity: 0.4; }
+.baddie-float.f9 { top: 45%; right: 3%; width: 32px; height: 26px; color: var(--purple); animation: baddieFloatA 10s ease-in-out infinite; --base-opacity: 0.4; --anim-duration: 10s; }
 /* Crown */
-.baddie-float.f10 { top: 55%; left: 12%; width: 28px; height: 20px; color: var(--pink-light); animation: baddieFloatB 19s ease-in-out infinite; --base-opacity: 0.35; }
+.baddie-float.f10 { top: 55%; left: 12%; width: 28px; height: 20px; color: var(--pink-light); animation: baddieFloatB 19s ease-in-out infinite; --base-opacity: 0.35; --anim-duration: 19s; }
 /* Heart */
-.baddie-float.f11 { top: 30%; right: 20%; width: 20px; height: 18px; color: var(--pink); animation: baddieFloatE 14s ease-in-out infinite; --base-opacity: 0.3; }
+.baddie-float.f11 { top: 30%; right: 20%; width: 20px; height: 18px; color: var(--pink); animation: baddieFloatE 14s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 14s; }
 /* Star */
-.baddie-float.f12 { top: 70%; left: 20%; width: 18px; height: 18px; color: var(--cyan); animation: baddieFloatF 12s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f12 { top: 70%; left: 20%; width: 18px; height: 18px; color: var(--cyan); animation: baddieFloatF 12s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 12s; }
 /* Kiss mark */
-.baddie-float.f13 { top: 8%; right: 25%; width: 28px; height: 22px; color: var(--pink); animation: baddieFloatE 16s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f13 { top: 8%; right: 25%; width: 28px; height: 22px; color: var(--pink); animation: baddieFloatE 16s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 16s; }
 /* Nail polish */
-.baddie-float.f14 { top: 85%; left: 6%; width: 22px; height: 42px; color: var(--purple); animation: baddieFloatF 15s ease-in-out infinite; --base-opacity: 0.25; }
+.baddie-float.f14 { top: 85%; left: 6%; width: 22px; height: 42px; color: var(--purple); animation: baddieFloatF 15s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 15s; }
 /* Sparkle */
-.baddie-float.f15 { top: 40%; left: 22%; width: 14px; height: 14px; color: var(--pink-light); animation: baddieFloatE 11s ease-in-out infinite; --base-opacity: 0.35; }
+.baddie-float.f15 { top: 40%; left: 22%; width: 14px; height: 14px; color: var(--pink-light); animation: baddieFloatE 11s ease-in-out infinite; --base-opacity: 0.35; --anim-duration: 11s; }
+/* Fire 1 */
+.baddie-float.f16 { top: 60%; left: 2%; width: 24px; height: 30px; color: var(--pink); animation: baddieFloatG 12s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 12s; }
+/* Fire 2 */
+.baddie-float.f17 { top: 25%; right: 2%; width: 20px; height: 26px; color: var(--pink-light); animation: baddieFloatH 14s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 14s; }
+/* Fire 3 */
+.baddie-float.f18 { top: 75%; right: 22%; width: 22px; height: 28px; color: var(--cyan); animation: baddieFloatG 16s ease-in-out infinite; --base-opacity: 0.2; --anim-duration: 16s; }
+/* Big Fire 4 */
+.baddie-float.f19 { top: 40%; left: 6%; width: 36px; height: 46px; color: var(--pink); animation: baddieFloatH 13s ease-in-out infinite; --base-opacity: 0.3; --anim-duration: 13s; }
+/* Big Fire 5 */
+.baddie-float.f20 { top: 15%; right: 5%; width: 32px; height: 42px; color: var(--pink-light); animation: baddieFloatG 15s ease-in-out infinite; --base-opacity: 0.25; --anim-duration: 15s; }
+/* Big Fire 6 */
+.baddie-float.f21 { top: 65%; right: 12%; width: 34px; height: 44px; color: var(--cyan); animation: baddieFloatH 11s ease-in-out infinite; --base-opacity: 0.2; --anim-duration: 11s; }
+
+/* ===== BADDIE DOMINATE TEXT ===== */
+.baddie-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.baddie-floats.intense .baddie-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.bt-line {
+  display: block;
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 900;
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: 4px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,32,121,0.15);
+  text-shadow: none;
+  user-select: none;
+}
+
+.bt-line1 {
+  background: linear-gradient(135deg, var(--pink), var(--pink-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: btGlow1 3s ease-in-out infinite;
+}
+
+.bt-line2 {
+  background: linear-gradient(135deg, var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: clamp(2rem, 6vw, 4rem);
+  letter-spacing: 8px;
+  animation: btGlow2 3s ease-in-out infinite 0.5s;
+}
+
+.bt-line3 {
+  background: linear-gradient(135deg, var(--pink), var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: clamp(3.5rem, 12vw, 8rem);
+  letter-spacing: 12px;
+  animation: btGlow3 2.5s ease-in-out infinite 1s;
+}
+
+.bt-line4 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  background: linear-gradient(90deg, var(--pink), var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: btShimmer 2s ease-in-out infinite 1.5s;
+}
+
+@keyframes btGlow1 {
+  0%, 100% { text-shadow: 0 0 20px rgba(255,32,121,0.3); }
+  50% { text-shadow: 0 0 60px rgba(255,32,121,0.6), 0 0 120px rgba(255,32,121,0.3); }
+}
+
+@keyframes btGlow2 {
+  0%, 100% { text-shadow: 0 0 20px rgba(0,240,255,0.3); }
+  50% { text-shadow: 0 0 60px rgba(0,240,255,0.5), 0 0 100px rgba(255,32,121,0.3); }
+}
+
+@keyframes btGlow3 {
+  0%, 100% { text-shadow: 0 0 30px rgba(255,32,121,0.4); }
+  50% { text-shadow: 0 0 80px rgba(255,32,121,0.7), 0 0 150px rgba(0,240,255,0.4); }
+}
+
+@keyframes btShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 
 @keyframes baddieFloatA {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -295,6 +448,20 @@ img { max-width: 100%; display: block; }
 @keyframes baddieFloatF {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   50% { transform: translate(-12px, 25px) rotate(6deg); }
+}
+
+@keyframes baddieFloatG {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(-3deg); }
+  25% { transform: translate(-8px, -15px) scale(1.1) rotate(3deg); }
+  50% { transform: translate(4px, -8px) scale(0.95) rotate(-2deg); }
+  75% { transform: translate(-4px, -20px) scale(1.05) rotate(2deg); }
+}
+
+@keyframes baddieFloatH {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(2deg); }
+  25% { transform: translate(6px, -12px) scale(1.08) rotate(-4deg); }
+  50% { transform: translate(-6px, -18px) scale(0.9) rotate(3deg); }
+  75% { transform: translate(8px, -8px) scale(1.06) rotate(-2deg); }
 }
 
 /* ===== HERO ===== */
