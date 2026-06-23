@@ -172,6 +172,7 @@
         <li><a href="#react" class="nav-link">React JS</a></li>
         <li><a href="#node" class="nav-link">Node JS</a></li>
         <li><a href="#neetcode" class="nav-link">NeetCode 250</a></li>
+        <li><a href="#analytics" class="nav-link">Analytics</a></li>
         <li class="nav-auth-li" id="navAuthLi">
           <button class="btn-signin" id="btnSignin" onclick="openSigninModal()">Sign In</button>
           <div class="user-profile" id="userProfile" style="display:none">
@@ -324,6 +325,47 @@
     </div>
   </section>
 
+  <!-- Baddie Analytics Section -->
+  <section class="section" id="analytics">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">📊 Flex Stats</span>
+        <h2>Baddie <span class="gradient-text">Analytics</span></h2>
+        <p>Enter your Codeforces and LeetCode handles to flex your competitive programming stats.</p>
+      </div>
+      <div class="analytics-grid">
+        <!-- Codeforces Card -->
+        <div class="analytics-card animate-on-scroll">
+          <div class="analytics-card-header">
+            <span class="analytics-platform-icon">💪</span>
+            <h3>Codeforces</h3>
+          </div>
+          <div class="analytics-input-row">
+            <input type="text" id="cfHandle" placeholder="Enter CF handle..." spellcheck="false" />
+            <button class="btn btn-primary analytics-btn" onclick="fetchCFStats()">Go</button>
+          </div>
+          <div class="analytics-result" id="cfResult">
+            <div class="analytics-placeholder">Enter a handle to see the flex 👇</div>
+          </div>
+        </div>
+        <!-- LeetCode Card -->
+        <div class="analytics-card animate-on-scroll">
+          <div class="analytics-card-header">
+            <span class="analytics-platform-icon">🧠</span>
+            <h3>LeetCode</h3>
+          </div>
+          <div class="analytics-input-row">
+            <input type="text" id="lcHandle" placeholder="Enter LC username..." spellcheck="false" />
+            <button class="btn btn-primary analytics-btn" onclick="fetchLCStats()">Go</button>
+          </div>
+          <div class="analytics-result" id="lcResult">
+            <div class="analytics-placeholder">Enter a username to see the flex 👇</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -339,6 +381,7 @@
           <a href="#react">React JS</a>
           <a href="#node">Node JS</a>
           <a href="#neetcode">NeetCode 250</a>
+          <a href="#analytics">Analytics</a>
         </div>
         <div class="footer-links">
           <h4>Topics</h4>
