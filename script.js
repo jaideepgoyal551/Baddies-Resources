@@ -443,11 +443,16 @@ window.addEventListener('scroll', () => {
   document.querySelectorAll('.nav-link').forEach(l => {
     l.classList.toggle('active', l.getAttribute('href') === '#' + current);
   });
-  // Baddie floats glow brighter on scroll
+  // Baddie floats glow brighter on scroll — FULL DOMINATION MODE
   const floats = document.querySelector('.baddie-floats');
   if (floats) {
-    const scrollPercent = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
+    const scrollPercent = Math.min(window.scrollY / (window.innerHeight * 0.3), 1);
     floats.style.setProperty('--scroll-glow', scrollPercent);
+    if (scrollPercent > 0.35) {
+      floats.classList.add('intense');
+    } else {
+      floats.classList.remove('intense');
+    }
   }
 });
 
