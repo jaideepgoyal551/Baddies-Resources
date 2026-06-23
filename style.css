@@ -1007,13 +1007,6 @@ img { max-width: 100%; display: block; }
   transform: translateY(-1px);
 }
 
-.code-hint {
-  margin-top: 16px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-style: italic;
-}
-
 /* ===== FLOATING COMMUNITY BUTTON ===== */
 .float-community {
   position: fixed;
