@@ -491,77 +491,58 @@ function animateCounter(el, target) {
   }, 25);
 }
 
-// ===== PURCHASED TRACKING =====
-function getPurchasedKey() {
-  return 'purchased_' + (currentUser ? currentUser.sub : 'guest');
+// ===== TRACKING (code-based unlock) =====
+function getUnlockKey() {
+  return 'unlocked_' + (currentUser ? currentUser.sub : 'guest');
 }
 
-let purchased = JSON.parse(localStorage.getItem(getPurchasedKey()) || '{}');
+let unlockedAll = localStorage.getItem(getUnlockKey()) === 'true';
 
-function reloadPurchased() {
-  purchased = JSON.parse(localStorage.getItem(getPurchasedKey()) || '{}');
+function saveUnlocked() {
+  localStorage.setItem(getUnlockKey(), unlockedAll ? 'true' : 'false');
 }
 
-function savePurchased() {
-  localStorage.setItem(getPurchasedKey(), JSON.stringify(purchased));
+function isUnlocked(noteTitle) {
+  return noteTitle === 'Arrays & Hashing' || unlockedAll;
 }
 
-function isPurchased(noteTitle) {
-  return noteTitle === 'Arrays & Hashing' || purchased[noteTitle] === true;
-}
-
-// ===== NOTES GRID =====
-// (renderNotes() is called at the end of the script)
-
-// ===== CHECKOUT MODAL =====
-function showCheckout(note) {
-  document.getElementById('checkoutTitle').textContent = note.title;
-  document.getElementById('checkoutAmount').textContent = '₹' + note.price;
-  document.getElementById('checkoutAmountBtn').textContent = '₹' + note.price;
-  document.getElementById('checkoutNote').value = note.title;
-  document.getElementById('checkoutModal').classList.add('open');
+// ===== CODE UNLOCK MODAL =====
+function showCodeModal() {
+  document.getElementById('codeModal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.getElementById('upiInput').value = '';
-  document.querySelector('.checkout-pay-btn').disabled = false;
-  document.querySelector('.checkout-pay-btn').textContent = 'Pay ₹' + note.price;
+  document.getElementById('codeInput').value = '';
+  document.getElementById('codeInput').focus();
 }
 
-function closeCheckout() {
-  document.getElementById('checkoutModal').classList.remove('open');
+function closeCodeModal() {
+  document.getElementById('codeModal').classList.remove('open');
   document.body.style.overflow = '';
 }
 
-function processPayment() {
-  const upiId = document.getElementById('upiInput').value.trim();
-  const noteTitle = document.getElementById('checkoutNote').value;
+const SECRET_CODE = 'proteienchor';
 
-  if (!upiId || !upiId.includes('@')) {
-    showToast('Please enter a valid UPI ID (e.g. name@upi).');
+function verifyCode() {
+  const code = document.getElementById('codeInput').value.trim().toLowerCase();
+  if (!code) {
+    showToast('Enter the secret code first.');
     return;
   }
-
-  const btn = document.querySelector('.checkout-pay-btn');
-  btn.textContent = '⏳ Processing...';
-  btn.disabled = true;
-
-  // Simulate payment
-  setTimeout(() => {
-    if (!currentUser) {
-      showToast('⚠️ Please sign in first so your purchases are saved.');
-      btn.disabled = false;
-      btn.textContent = 'Pay ₹9';
-      return;
-    }
-    purchased[noteTitle] = true;
-    savePurchased();
-    closeCheckout();
-    showToast(`✅ Payment successful! ${noteTitle} is now unlocked.`);
-    btn.textContent = '✅ Paid - View Notes';
-    btn.disabled = false;
-    document.getElementById('upiInput').value = '';
-    // Re-render notes to show unlocked state
+  if (code === SECRET_CODE) {
+    unlockedAll = true;
+    saveUnlocked();
+    closeCodeModal();
+    showToast('✅ Code correct! All notes unlocked. Go slay! 🔥');
     renderNotes();
-  }, 2000);
+  } else {
+    showToast('❌ Wrong code. Try again, baddie.');
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+}
+
+function showCodeUnlockPrompt(note) {
+  // Directly show code modal - works for both guest and signed-in users
+  showCodeModal();
 }
 
 function renderNotes() {
@@ -571,13 +552,13 @@ function renderNotes() {
     card.className = 'note-card animate-on-scroll';
     card.style.animationDelay = `${idx * 0.08}s`;
     const free = note.price === 0;
-    const bought = isPurchased(note.title);
-    const canAccess = free || bought;
+    const unlocked = isUnlocked(note.title);
+    const canAccess = free || unlocked;
     card.innerHTML = `
       <div class="note-card-top">
         <div class="note-icon">${note.icon}</div>
-        <span class="price-badge ${free ? 'price-free' : (bought ? 'price-bought' : 'price-paid')}">
-          ${free ? 'Free' : (bought ? '✓ Owned' : '₹' + note.price)}
+        <span class="price-badge ${free ? 'price-free' : (unlocked ? 'price-bought' : 'price-paid')}">
+          ${free ? 'Free' : (unlocked ? '✓ Unlocked' : '🔒 Locked')}
         </span>
       </div>
       <h3>${note.title}</h3>
@@ -586,7 +567,7 @@ function renderNotes() {
         <span class="note-tag">${note.tag}</span>
         ${canAccess
           ? `<button class="btn-note btn-view">📖 View Notes</button>`
-          : `<button class="btn-note btn-buy" data-title="${note.title}">🛒 Buy Now - ₹${note.price}</button>`
+          : `<button class="btn-note btn-buy">🔑 Unlock with Code</button>`
         }
       </div>
     `;
@@ -599,13 +580,26 @@ function renderNotes() {
     } else {
       card.querySelector('.btn-buy').addEventListener('click', (e) => {
         e.stopPropagation();
-        showCheckout(note);
+        showCodeUnlockPrompt(note);
       });
     }
 
     notesGrid.appendChild(card);
     observer.observe(card);
   });
+  // Update unlock-all button text
+  const unlockBtn = document.querySelector('.unlock-all-btn');
+  if (unlockBtn) {
+    unlockBtn.textContent = unlockedAll ? '🔓 All Notes Unlocked!' : '🔓 Unlock All Notes';
+    unlockBtn.disabled = unlockedAll;
+    if (unlockedAll) {
+      unlockBtn.style.opacity = '0.6';
+      unlockBtn.style.cursor = 'default';
+    } else {
+      unlockBtn.style.opacity = '';
+      unlockBtn.style.cursor = '';
+    }
+  }
 }
 
 // ===== PDF VIEWER =====
@@ -653,7 +647,7 @@ function closePDF() {
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') { closePDF(); closeSigninModal(); closeCheckout(); }
+  if (e.key === 'Escape') { closePDF(); closeSigninModal(); closeCodeModal(); }
 });
 
 // ===== TOAST =====
