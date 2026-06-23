@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodePglu - DSA & Development Notes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+  <meta name="theme-color" content="#7C3AED" />
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">CodePglu</span>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#notes" class="nav-link">DSA Notes</a></li>
+        <li><a href="#react" class="nav-link">React JS</a></li>
+        <li><a href="#node" class="nav-link">Node JS</a></li>
+        <li><a href="#neetcode" class="nav-link">NeetCode 250</a></li>
+        <li class="nav-auth-li" id="navAuthLi">
+          <button class="btn-signin" id="btnSignin" onclick="openSigninModal()">Sign In</button>
+          <div class="user-profile" id="userProfile" style="display:none">
+            <img id="userAvatar" src="" alt="" class="user-avatar" />
+            <span class="user-name" id="userName"></span>
+            <button class="btn-signout" id="btnSignout" onclick="signOut()">Sign Out</button>
+          </div>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="sun-icon">☀️</span>
+          <span class="moon-icon">🌙</span>
+        </button>
+        <div class="nav-toggle" id="navToggle">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="circle c3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text animate-fade-up">
+        <span class="hero-badge">📖 Your Study Companion</span>
+        <h1>Master <span class="gradient-text">DSA & Development</span></h1>
+        <p>Curated notes, NeetCode 250 sheet, and upcoming React & Node courses — all in one place.</p>
+        <div class="hero-buttons">
+          <a href="#notes" class="btn btn-primary">Start Learning <span>&rarr;</span></a>
+          <a href="#neetcode" class="btn btn-outline">View DSA Sheet</a>
+        </div>
+      </div>
+      <div class="hero-visual animate-fade-up" style="animation-delay:0.2s">
+        <div class="code-window">
+          <div class="code-header"><span></span><span></span><span></span></div>
+          <div class="code-body">
+            <pre><span class="kw">function</span> <span class="fn">solve</span>() {<br>  <span class="kw">const</span> <span class="v">success</span> = <span class="str">"Keep Learning!"</span>;<br>  <span class="kw">return</span> <span class="v">success</span>;<br>}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="mouse"><div class="wheel"></div></div>
+    </div>
+  </section>
+
+  <!-- Stats Counter -->
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Total Notes</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="1">0</span><span class="stat-label">Free Notes</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="250">0</span><span class="stat-label">NeetCode Problems</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="18">0</span><span class="stat-label">Topics Covered</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="2">0</span><span class="stat-label">Courses (Soon)</span></div>
+    </div>
+  </section>
+
+  <!-- DSA Notes Section -->
+  <section class="section" id="notes">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">📚 DSA Notes</span>
+        <h2>Data Structures & Algorithms</h2>
+        <p>Handwritten-style notes covering essential DSA topics with NeetCode-aligned content.</p>
+      </div>
+      <div class="notes-grid" id="notesGrid">
+        <!-- Cards will be injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- React JS Section -->
+  <section class="section section-alt" id="react">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">⚛️ Coming Soon</span>
+        <h2>React JS Mastery</h2>
+        <p>From hooks to advanced patterns — build real-world apps with React.</p>
+      </div>
+      <div class="coming-soon-card animate-on-scroll">
+        <div class="cs-icon"><span class="react-logo">⚛️</span></div>
+        <h3>React JS Course</h3>
+        <div class="cs-progress"><div class="cs-progress-bar" style="width:0%"></div></div>
+        <p>Content being prepared. Get notified when we launch!</p>
+        <div class="cs-notify">
+          <input type="email" placeholder="Enter your email" id="reactEmail" />
+          <button class="btn btn-primary" onclick="notifyMe('react')">Notify Me</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Node JS Section -->
+  <section class="section" id="node">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">🟢 Coming Soon</span>
+        <h2>Node JS Backend</h2>
+        <p>APIs, databases, auth — full-stack development with Node.js.</p>
+      </div>
+      <div class="coming-soon-card animate-on-scroll">
+        <div class="cs-icon"><span class="node-logo">🟢</span></div>
+        <h3>Node JS Course</h3>
+        <div class="cs-progress"><div class="cs-progress-bar" style="width:0%"></div></div>
+        <p>We're crafting an awesome Node.js curriculum. Stay tuned!</p>
+        <div class="cs-notify">
+          <input type="email" placeholder="Enter your email" id="nodeEmail" />
+          <button class="btn btn-primary" onclick="notifyMe('node')">Notify Me</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NeetCode 250 Section -->
+  <section class="section section-alt" id="neetcode">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">🦄 DSA Sheet</span>
+        <h2>NeetCode 250</h2>
+        <p>Complete beginner-friendly DSA roadmap. Track your progress as you solve.</p>
+      </div>
+      <div class="nc-controls animate-on-scroll">
+        <div class="nc-progress-bar">
+          <div class="nc-progress-fill" id="ncProgressFill">0%</div>
+        </div>
+        <div class="nc-stats">
+          <span>Solved: <strong id="solvedCount">0</strong> / 250</span>
+          <span>Easy: <strong id="easyCount">0</strong>/60</span>
+          <span>Med: <strong id="medCount">0</strong>/155</span>
+          <span>Hard: <strong id="hardCount">0</strong>/35</span>
+        </div>
+        <div class="nc-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Easy">Easy</button>
+          <button class="filter-btn" data-filter="Medium">Medium</button>
+          <button class="filter-btn" data-filter="Hard">Hard</button>
+        </div>
+      </div>
+      <div class="nc-topics" id="ncTopics">
+        <!-- Topics injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">&lt;/&gt;</span>
+          <span class="logo-text">CodePglu</span>
+          <p>Your one-stop platform for DSA and development mastery.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#notes">DSA Notes</a>
+          <a href="#react">React JS</a>
+          <a href="#node">Node JS</a>
+          <a href="#neetcode">NeetCode 250</a>
+        </div>
+        <div class="footer-links">
+          <h4>Topics</h4>
+          <a href="#notes">Arrays</a>
+          <a href="#notes">Linked Lists</a>
+          <a href="#notes">Dynamic Programming</a>
+          <a href="#notes">Stacks</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CodePglu. Made with ❤️ for learners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sign In Modal -->
+  <div class="modal" id="signinModal">
+    <div class="modal-overlay" onclick="closeSigninModal()"></div>
+    <div class="modal-content signin-modal">
+      <div class="modal-header">
+        <h3>🔐 Sign In</h3>
+        <button class="modal-close" onclick="closeSigninModal()">&times;</button>
+      </div>
+      <div class="signin-body">
+        <div class="signin-welcome">
+          <div class="signin-logo">&lt;/&gt;</div>
+          <h2>Welcome to CodePglu</h2>
+          <p>Sign in to track your purchases and progress across devices.</p>
+        </div>
+        <div class="signin-divider">
+          <span>Sign in with</span>
+        </div>
+        <div id="g_id_onload"
+          data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-callback="handleGoogleCredential"
+          data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+          data-type="standard"
+          data-shape="pill"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="left">
+        </div>
+        <div class="signin-guest">
+          <button class="btn btn-outline" onclick="signInAsGuest()">Continue as Guest</button>
+        </div>
+        <p class="signin-note">Your data stays on your device. We never store your info on servers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Viewer Modal -->
+  <div class="modal" id="pdfModal">
+    <div class="modal-overlay" onclick="closePDF()"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">PDF Viewer</h3>
+        <button class="modal-close" onclick="closePDF()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <iframe id="pdfFrame" src=""></iframe>
+        <div class="pdf-fallback" id="pdfFallback">
+          <p>📄 PDF cannot preview in your browser.</p>
+          <a id="pdfDownloadLink" target="_blank" class="btn btn-primary">Open PDF directly</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout / Payment Modal -->
+  <div class="modal" id="checkoutModal">
+    <div class="modal-overlay" onclick="closeCheckout()"></div>
+    <div class="modal-content checkout-modal">
+      <div class="modal-header">
+        <h3>🛒 Complete Purchase</h3>
+        <button class="modal-close" onclick="closeCheckout()">&times;</button>
+      </div>
+      <div class="checkout-body">
+        <div class="checkout-summary">
+          <div class="checkout-item">
+            <span>📄 <strong id="checkoutTitle">Notes</strong></span>
+            <span id="checkoutAmount">₹9</span>
+          </div>
+        </div>
+        <div class="checkout-divider"></div>
+        <div class="checkout-upi">
+          <label>Pay with UPI</label>
+          <div class="upi-input-wrap">
+            <input type="text" id="upiInput" placeholder="Enter UPI ID (e.g. name@upi)" autocomplete="off" />
+          </div>
+          <input type="hidden" id="checkoutNote" value="" />
+          <button class="btn btn-primary checkout-pay-btn" onclick="processPayment()">Pay <span id="checkoutAmountBtn">₹9</span></button>
+          <p class="checkout-secure">🔒 Secure & fast payment via UPI</p>
+        </div>
+        <div class="checkout-test-note">
+          ⚡ Demo mode — enter any UPI ID (e.g. <code>test@upi</code>) to simulate payment.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
