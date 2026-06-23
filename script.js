@@ -443,6 +443,12 @@ window.addEventListener('scroll', () => {
   document.querySelectorAll('.nav-link').forEach(l => {
     l.classList.toggle('active', l.getAttribute('href') === '#' + current);
   });
+  // Baddie floats glow brighter on scroll
+  const floats = document.querySelector('.baddie-floats');
+  if (floats) {
+    const scrollPercent = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
+    floats.style.setProperty('--scroll-glow', scrollPercent);
+  }
 });
 
 // ===== ANIMATE ON SCROLL =====
@@ -642,7 +648,7 @@ function closePDF() {
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closePDF();
+  if (e.key === 'Escape') { closePDF(); closeSigninModal(); closeCheckout(); }
 });
 
 // ===== TOAST =====
@@ -804,5 +810,5 @@ renderNotes();
 renderNCSheet();
 
 // ===== KEYBOARD SHORTCUT: Close modal with Escape =====
-console.log('%c📚 CodePglu loaded!', 'font-size:1.5rem; font-weight:bold; color:#7C3AED;');
-console.log('%cHappy Learning! 🚀', 'font-size:1rem; color:#F97316;');
+console.log('%c🔥 Baddies Resorces loaded!', 'font-size:1.5rem; font-weight:bold; color:#FF2079;');
+console.log('%cGrind mode: ON 🚀', 'font-size:1rem; color:#00F0FF;');
