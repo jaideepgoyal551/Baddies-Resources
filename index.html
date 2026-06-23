@@ -232,7 +232,7 @@
       <div class="stat-item"><span class="stat-number" data-target="1">0</span><span class="stat-label">Free Notes</span></div>
       <div class="stat-item"><span class="stat-number" data-target="250">0</span><span class="stat-label">NeetCode Problems</span></div>
       <div class="stat-item"><span class="stat-number" data-target="18">0</span><span class="stat-label">Topics Covered</span></div>
-      <div class="stat-item"><span class="stat-number" data-target="2">0</span><span class="stat-label">Courses (Soon)</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="1">0</span><span class="stat-label">Secret Code</span></div>
     </div>
   </section>
 
@@ -242,7 +242,8 @@
       <div class="section-header animate-on-scroll">
         <span class="section-badge">🔥 DSA Notes</span>
         <h2>Data Structures & Algorithms</h2>
-        <p>Hand-picked DSA notes with that NeetCode flavor. Study smart, look baddie.</p>
+        <p>Hand-picked DSA notes with that NeetCode flavor. Arrays are free — unlock the rest with the secret code.</p>
+        <button class="btn btn-primary unlock-all-btn" onclick="showCodeModal()">🔓 Unlock All Notes</button>
       </div>
       <div class="notes-grid" id="notesGrid">
         <!-- Cards will be injected by JS -->
@@ -358,17 +359,17 @@
     <div class="modal-overlay" onclick="closeSigninModal()"></div>
     <div class="modal-content signin-modal">
       <div class="modal-header">
-        <h3>🔐 Sign In</h3>
+        <h3>🔥 Sign In</h3>
         <button class="modal-close" onclick="closeSigninModal()">&times;</button>
       </div>
       <div class="signin-body">
         <div class="signin-welcome">
-          <div class="signin-logo">&lt;/&gt;</div>
+          <div class="signin-logo">🔥</div>
           <h2>Welcome to Baddies Resorces</h2>
-          <p>Sign in to track your purchases and flex your progress across devices.</p>
+          <p>Sign in to save your unlocked notes and flex your progress across devices.</p>
         </div>
         <div class="signin-divider">
-          <span>Sign in with</span>
+          <span>Sign in as a Baddie</span>
         </div>
         <div id="g_id_onload"
           data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
@@ -411,37 +412,32 @@
     </div>
   </div>
 
-  <!-- Checkout / Payment Modal -->
-  <div class="modal" id="checkoutModal">
-    <div class="modal-overlay" onclick="closeCheckout()"></div>
-    <div class="modal-content checkout-modal">
+  <!-- Code Unlock Modal -->
+  <div class="modal" id="codeModal">
+    <div class="modal-overlay" onclick="closeCodeModal()"></div>
+    <div class="modal-content code-modal">
       <div class="modal-header">
-        <h3>🛒 Complete Purchase</h3>
-        <button class="modal-close" onclick="closeCheckout()">&times;</button>
+        <h3>🔓 Unlock All Notes</h3>
+        <button class="modal-close" onclick="closeCodeModal()">&times;</button>
       </div>
-      <div class="checkout-body">
-        <div class="checkout-summary">
-          <div class="checkout-item">
-            <span>📄 <strong id="checkoutTitle">Notes</strong></span>
-            <span id="checkoutAmount">₹9</span>
-          </div>
+      <div class="code-body">
+        <div class="code-lock-icon">🔐</div>
+        <h2>Enter the Secret Code</h2>
+        <p>Drop the code to unlock <strong>all</strong> premium notes. One code, full access, no cap.</p>
+        <div class="code-input-wrap">
+          <input type="text" id="codeInput" placeholder="Enter code..." autocomplete="off" spellcheck="false" />
         </div>
-        <div class="checkout-divider"></div>
-        <div class="checkout-upi">
-          <label>Pay with UPI</label>
-          <div class="upi-input-wrap">
-            <input type="text" id="upiInput" placeholder="Enter UPI ID (e.g. name@upi)" autocomplete="off" />
-          </div>
-          <input type="hidden" id="checkoutNote" value="" />
-          <button class="btn btn-primary checkout-pay-btn" onclick="processPayment()">Pay <span id="checkoutAmountBtn">₹9</span></button>
-          <p class="checkout-secure">🔒 Secure & fast payment via UPI</p>
-        </div>
-        <div class="checkout-test-note">
-          ⚡ Demo mode — enter any UPI ID (e.g. <code>test@upi</code>) to simulate payment.
-        </div>
+        <button class="btn btn-primary code-unlock-btn" onclick="verifyCode()">🚀 Unlock Everything</button>
+        <p class="code-hint">Hint: think <em>protein</em> + <em>anchor</em>... but baddie style 😉</p>
       </div>
     </div>
   </div>
+
+  <!-- Floating Join Baddie Community -->
+  <a href="https://chat.whatsapp.com/IHGxugI4KeG5Uxoi8PvnZF" target="_blank" rel="noopener" class="float-community" id="floatCommunity">
+    <span class="float-community-icon">💬</span>
+    <span class="float-community-text">Join the Baddies</span>
+  </a>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
